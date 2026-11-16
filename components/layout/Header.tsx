@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -25,6 +25,22 @@ export function Header({ onMenuClick, title }: HeaderProps) {
   const router = useRouter();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [founderName, setFounderName] = useState("Fayyaza Segoro");
+  const [founderEmail, setFounderEmail] = useState("founder@waveintel.id");
+
+  useEffect(() => {
+    const syncProfile = () => {
+      if (typeof window !== "undefined") {
+        const savedName = localStorage.getItem("wave_founder_name");
+        const savedEmail = localStorage.getItem("wave_founder_email");
+        if (savedName) setFounderName(savedName);
+        if (savedEmail) setFounderEmail(savedEmail);
+      }
+    };
+    syncProfile();
+    window.addEventListener("storage", syncProfile);
+    return () => window.removeEventListener("storage", syncProfile);
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,8 +125,8 @@ export function Header({ onMenuClick, title }: HeaderProps) {
                 />
                 <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-[#E5E6DC] py-1.5 z-50 text-xs">
                   <div className="px-3 py-2 border-b border-[#E5E6DC] mb-1">
-                    <p className="font-bold text-[#485344]">Rafi Al Fareza</p>
-                    <p className="text-[11px] text-[#8C9886]">founder@waveintel.id</p>
+                    <p className="font-bold text-[#485344]">{founderName}</p>
+                    <p className="text-[11px] text-[#8C9886]">{founderEmail}</p>
                     <span className="inline-block mt-1 text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#E2E9D8] text-[#485344]">
                       Free Tier
                     </span>

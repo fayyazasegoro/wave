@@ -1,17 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, Mail, Shield, Save, CheckCircle2 } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 
 export default function ProfilePage() {
-  const [name, setName] = useState("Rafi Al Fareza");
+  const [name, setName] = useState("Fayyaza Segoro");
   const [email, setEmail] = useState("founder@waveintel.id");
   const [role, setRole] = useState("Founder / Serial Entrepreneur");
   const [saved, setSaved] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedName = localStorage.getItem("wave_founder_name");
+      const savedEmail = localStorage.getItem("wave_founder_email");
+      const savedRole = localStorage.getItem("wave_founder_role");
+      if (savedName) setName(savedName);
+      if (savedEmail) setEmail(savedEmail);
+      if (savedRole) setRole(savedRole);
+    }
+  }, []);
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("wave_founder_name", name);
+      localStorage.setItem("wave_founder_email", email);
+      localStorage.setItem("wave_founder_role", role);
+      // Dispatch storage event so header updates immediately
+      window.dispatchEvent(new Event("storage"));
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };

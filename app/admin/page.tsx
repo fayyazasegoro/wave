@@ -23,7 +23,7 @@ export default function AdminPage() {
 
   // Mock platform users
   const [users, setUsers] = useState([
-    { id: "u1", name: "Rafi Al Fareza", email: "founder@waveintel.id", tier: "pro", activeProjects: 4, aiUsed: 48, status: "Active" },
+    { id: "u1", name: "Fayyaza Segoro", email: "founder@waveintel.id", tier: "pro", activeProjects: 4, aiUsed: 48, status: "Active" },
     { id: "u2", name: "Anisa Rahma", email: "anisa@startup.id", tier: "premium", activeProjects: 2, aiUsed: 19, status: "Active" },
     { id: "u3", name: "Budi Santoso", email: "budi.umkm@gmail.com", tier: "free", activeProjects: 1, aiUsed: 4, status: "Active" },
     { id: "u4", name: "Dewi Lestari", email: "dewi.creator@yahoo.com", tier: "free", activeProjects: 0, aiUsed: 0, status: "Inactive" },
